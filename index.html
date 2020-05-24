@@ -18,26 +18,27 @@
    <div class="container">
     <h1>Tic-Tac-Toe</h1>
     <div class="choose-piece" id="choosePiece">
-      <div class="choose-block" onclick="sendUserPieceToFactory(this)" id="X">X</div>
-      <div class="choose-block" onclick="sendUserPieceToFactory(this)" id="O">O</div>
+      <div class="choose-block" onclick="sendUserPieceToPlayer(this)" id="X">X</div>
+      <div class="choose-block" onclick="sendUserPieceToPlayer(this)" id="O">O</div>
     </div>
     <div class="play-area" id="playArea">
-      <div id="block_0" onclick="sendUserChoiceToFactory(this)" value="0" class="block"></div>
-      <div id="block_1" onclick="sendUserChoiceToFactory(this)" value="1" class="block"></div>
-      <div id="block_2" onclick="sendUserChoiceToFactory(this)" value="2" class="block"></div>
-      <div id="block_3" onclick="sendUserChoiceToFactory(this)" value="3" class="block"></div>
-      <div id="block_4" onclick="sendUserChoiceToFactory(this)" value="4" class="block"></div>
-      <div id="block_5" onclick="sendUserChoiceToFactory(this)" value="5" class="block"></div>
-      <div id="block_6" onclick="sendUserChoiceToFactory(this)" value="6" class="block"></div>
-      <div id="block_7" onclick="sendUserChoiceToFactory(this)" value="7" class="block"></div>
-      <div id="block_8" onclick="sendUserChoiceToFactory(this)" value="8" class="block"></div>
+      <div id="block_0" onclick="sendBlockChoiceToGameBoard(this)" value="0" class="block"></div>
+      <div id="block_1" onclick="sendBlockChoiceToGameBoard(this)" value="1" class="block"></div>
+      <div id="block_2" onclick="sendBlockChoiceToGameBoard(this)" value="2" class="block"></div>
+      <div id="block_3" onclick="sendBlockChoiceToGameBoard(this)" value="3" class="block"></div>
+      <div id="block_4" onclick="sendBlockChoiceToGameBoard(this)" value="4" class="block"></div>
+      <div id="block_5" onclick="sendBlockChoiceToGameBoard(this)" value="5" class="block"></div>
+      <div id="block_6" onclick="sendBlockChoiceToGameBoard(this)" value="6" class="block"></div>
+      <div id="block_7" onclick="sendBlockChoiceToGameBoard(this)" value="7" class="block"></div>
+      <div id="block_8" onclick="sendBlockChoiceToGameBoard(this)" value="8" class="block"></div>
     </div>
     <h2 id="winner"></h2>
     <button onclick="callResetBoard()">RESET BOARD</button>
    </div> 
   </div>
+  <script src="js/DisplayController.js"></script>
+  <script src="js/AI.js"></script>
+  <script src="js/Player.js"></script>
   <script type="text/javascript" src="js/scripts.js"></script>
-  <script type="module" src="js/player.js"></script>
-  <script type="module" src="js/displayController.js"></script>
 </body>
 </html>

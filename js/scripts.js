@@ -1,21 +1,15 @@
+const displayController = DisplayController()
+const player = Player()
+const ai = AI()
 
 const gameBoardFactory = () => {
+
     let _x = 0
     this.gameBoard = [
         [''],[''],[''],
         [''],[''],[''],
         [''],[''],['']
     ]
-    let _userChoosenPiece = ""
-    let _userAIPiece = ""
-
-    const _showGameBoard = () => {
-        let playArea = document.getElementById("playArea")
-        let choosePiece = document.getElementById("choosePiece")
-        playArea.style.display = "grid"
-        choosePiece.style.display = "none"
-        
-    }
 
     const checkBoardForOccupiedSpace = () => {
         gameBoard.forEach((gameBoardPiece) => {
@@ -29,32 +23,8 @@ const gameBoardFactory = () => {
         },_x = 0)
     }
 
-    const playerPiece = (clicked) => {
-        checkBoardForOccupiedSpace()
-        _userChoosenPiece = clicked
-        AIPiece()
-        _showGameBoard()
-    }
-
-    const AIPiece = () => {
-        if(_userChoosenPiece === "X") {
-            _userAIPiece = "O"
-        }
-        else {
-            _userAIPiece = "X"
-        }
-    }
-
-    const printGameBoard = () =>  gameBoard.forEach((gameBoardPiece) => {
-        document.getElementById("block_"+_x).innerHTML = gameBoardPiece
-        _x++
-    },_x = 0)
-    
-    const resetGameBoard = () => {
-        let playArea = document.getElementById("playArea")
-        let choosePiece = document.getElementById("choosePiece")
-        playArea.style.display = "none"
-        choosePiece.style.display = "flex"
+    const resetGameBoardData = () => {
+        displayController.resetGameBoard()
         gameBoard = [
             [''],[''],[''],
             [''],[''],[''],
@@ -62,20 +32,40 @@ const gameBoardFactory = () => {
         ]
     }
 
+    const sendToPlayer = (storeUserPieceID) => {
+        player.playerPiece(storeUserPieceID)
+        AIPiece()
+        displayController.showGameBoard()
+    }
+
+    const AIPiece = () => {
+       if(player.returnPlayerPiece() === "X") {
+           ai.getAIPiece("O")
+        }
+        else {
+            ai.getAIPiece("X")
+        }
+    }
+
+    const printGameBoard = () =>  displayController.printGameBoard(gameBoard)
     
-    let insertPlayerChoice = (x) => gameBoard[x] = _userChoosenPiece
+    
+    let insertPlayerChoice = (valueToAddToGameBoard) => gameBoard[valueToAddToGameBoard] = player.returnPlayerPiece() //{
+
+    const insertAIChoice = (valueToAddToGameBoard) => gameBoard[valueToAddToGameBoard] = ai.returnAI()
 
     return {
         printGameBoard, 
         insertPlayerChoice, 
-        resetGameBoard,
-        playerPiece
+        sendToPlayer,
+        resetGameBoardData,
+        insertAIChoice
     }
 }
 
 const intializeGameBoard = gameBoardFactory()
 
-function sendUserChoiceToFactory(e) {
+function sendBlockChoiceToGameBoard(e) {
     let storeE = e.id
     // returns the value of the dom element
     let clicked = true
@@ -83,19 +73,19 @@ function sendUserChoiceToFactory(e) {
     if(clicked) {
         clicked = false
         intializeGameBoard.insertPlayerChoice(getValue)
-        //intializeGameBoard.insertPlayerChoice(Math.floor((Math.random() * 9) ))
+        intializeGameBoard.insertAIChoice(Math.floor((Math.random() * 9) ))
         intializeGameBoard.printGameBoard()
     }
     
 }
-function sendUserPieceToFactory(e) {
+function sendUserPieceToPlayer(e) {
     let storeUserPieceID = e.id
-    intializeGameBoard.playerPiece(storeUserPieceID)
+    intializeGameBoard.sendToPlayer(storeUserPieceID)
 }
 
 function callResetBoard() {
-    intializeGameBoard.resetGameBoard()
+    intializeGameBoard.resetGameBoardData()
     intializeGameBoard.printGameBoard()
 }
 
-intializeGameBoard.resetGameBoard()
+intializeGameBoard.resetGameBoardData()
