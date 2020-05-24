@@ -18,8 +18,8 @@
    <div class="container">
     <h1>Tic-Tac-Toe</h1>
     <div class="choose-piece" id="choosePiece">
-      <div class="block" onclick="sendUserPieceToFactory(this)" id="X">X</div>
-      <div class="block" onclick="sendUserPieceToFactory(this)" id="O">O</div>
+      <div class="choose-block" onclick="sendUserPieceToFactory(this)" id="X">X</div>
+      <div class="choose-block" onclick="sendUserPieceToFactory(this)" id="O">O</div>
     </div>
     <div class="play-area" id="playArea">
       <div id="block_0" onclick="sendUserChoiceToFactory(this)" value="0" class="block"></div>
@@ -36,6 +36,8 @@
     <button onclick="callResetBoard()">RESET BOARD</button>
    </div> 
   </div>
-  <script src="js/scripts.js"></script>
+  <script type="text/javascript" src="js/scripts.js"></script>
+  <script type="module" src="js/player.js"></script>
+  <script type="module" src="js/displayController.js"></script>
 </body>
 </html>

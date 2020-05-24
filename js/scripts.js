@@ -1,6 +1,7 @@
+
 const gameBoardFactory = () => {
     let _x = 0
-    this._gameBoard = [
+    this.gameBoard = [
         [''],[''],[''],
         [''],[''],[''],
         [''],[''],['']
@@ -16,13 +17,35 @@ const gameBoardFactory = () => {
         
     }
 
+    const checkBoardForOccupiedSpace = () => {
+        gameBoard.forEach((gameBoardPiece) => {
+            if(gameBoardPiece==="") {
+                playerPiece(clicked)
+            }
+            else{
+                var occupiedSpace = document.getElementById("block_" + _x)
+                occupiedSpace.classList.add(" occupied")
+            }
+        },_x = 0)
+    }
+
     const playerPiece = (clicked) => {
+        checkBoardForOccupiedSpace()
         _userChoosenPiece = clicked
-        console.log(_userChoosenPiece)
+        AIPiece()
         _showGameBoard()
     }
 
-    const printGameBoard = () =>  _gameBoard.forEach((gameBoardPiece) => {
+    const AIPiece = () => {
+        if(_userChoosenPiece === "X") {
+            _userAIPiece = "O"
+        }
+        else {
+            _userAIPiece = "X"
+        }
+    }
+
+    const printGameBoard = () =>  gameBoard.forEach((gameBoardPiece) => {
         document.getElementById("block_"+_x).innerHTML = gameBoardPiece
         _x++
     },_x = 0)
@@ -32,7 +55,7 @@ const gameBoardFactory = () => {
         let choosePiece = document.getElementById("choosePiece")
         playArea.style.display = "none"
         choosePiece.style.display = "flex"
-        _gameBoard = [
+        gameBoard = [
             [''],[''],[''],
             [''],[''],[''],
             [''],[''],['']
@@ -40,9 +63,14 @@ const gameBoardFactory = () => {
     }
 
     
-    let insertPlayerChoice = (x) => _gameBoard[x] = _userChoosenPiece
+    let insertPlayerChoice = (x) => gameBoard[x] = _userChoosenPiece
 
-    return {printGameBoard, insertPlayerChoice, resetGameBoard,playerPiece}
+    return {
+        printGameBoard, 
+        insertPlayerChoice, 
+        resetGameBoard,
+        playerPiece
+    }
 }
 
 const intializeGameBoard = gameBoardFactory()
