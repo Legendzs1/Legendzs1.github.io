@@ -4,13 +4,29 @@ const ai = AI()
 
 const gameBoardFactory = () => {
 
-    let _x = 0
-    let _y = 0
+    this.remainingPieces = 8
     this.gameBoard = [
         [''],[''],[''],
         [''],[''],[''],
         [''],[''],['']
     ]
+
+    const _subtractRemainingPieces = () => {
+        remainingPieces--
+    }
+    const checkRemainingPieces = () => {
+        if(remainingPieces === 0) {
+            return true
+            //remainingPieces = 8//WILL BE BUG WHERE IF RESETBOARD IT DOESNT GO BACK UP
+            //FIGURE OUT HOW TO CHANGE BACK TO 8
+        }
+
+        return false
+    }
+
+    const setRamainingPieces = () => {
+        
+    }
 
     const addOccupiedClassToDiv = () => {
         for(let i = 0; i < gameBoard.length; i++) {
@@ -63,9 +79,15 @@ const gameBoardFactory = () => {
     }
     
 
-    let insertPlayerChoice = (valueToAddToGameBoard) => gameBoard[valueToAddToGameBoard] = player.returnPlayerPiece() //{
+    let insertPlayerChoice = (valueToAddToGameBoard) => {
+        gameBoard[valueToAddToGameBoard] = player.returnPlayerPiece() 
+        _subtractRemainingPieces()
+    }
 
-    const insertAIChoice = (valueToAddToGameBoard) => gameBoard[valueToAddToGameBoard] = ai.returnAI()
+    const insertAIChoice = (valueToAddToGameBoard) => {
+        gameBoard[valueToAddToGameBoard] = ai.returnAI()
+        _subtractRemainingPieces()
+    }
 
     return {
         printGameBoard, 
@@ -73,7 +95,8 @@ const gameBoardFactory = () => {
         sendToPlayer,
         resetGameBoardData,
         insertAIChoice,
-        getNewMoveIfOccupied
+        getNewMoveIfOccupied,
+        checkRemainingPieces
     }
 }
 
@@ -88,12 +111,15 @@ function sendBlockChoiceToGameBoard(e) {
         clicked = false
         if(intializeGameBoard.getNewMoveIfOccupied(getValue) === true){
             intializeGameBoard.insertPlayerChoice(getValue)
-            let AILoop = false
-            while(AILoop === false){
-                let AIPiece = Math.floor((Math.random() * 9))
-                if(intializeGameBoard.getNewMoveIfOccupied(AIPiece) === true){
-                    intializeGameBoard.insertAIChoice(AIPiece)
-                    AILoop = true
+            if(intializeGameBoard.checkRemainingPieces()=== false)
+            {
+                let AILoop = false
+                while(AILoop === false){
+                    let AIPiece = Math.floor((Math.random() * 9))
+                    if(intializeGameBoard.getNewMoveIfOccupied(AIPiece) === true){
+                        intializeGameBoard.insertAIChoice(AIPiece)
+                        AILoop = true
+                    }
                 }
             }
         }
