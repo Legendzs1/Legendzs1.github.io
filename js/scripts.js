@@ -12,7 +12,7 @@ const gameBoardFactory = () => {
         [''],[''],['']
     ]
 
-    const checkBoardForOccupiedSpace = () => {
+    const addOccupiedClassToDiv = () => {
         for(let i = 0; i < gameBoard.length; i++) {
             if(gameBoard[i] != "") {
                 var occupiedSpace = document.getElementById("block_" + i)
@@ -25,8 +25,15 @@ const gameBoardFactory = () => {
         }
     }
 
+    const getNewMoveIfOccupied = (move) => {
+        if(gameBoard[move] != "") {
+            return false
+        }
+        return true
+    }
+
     const resetGameBoardData = () => {
-        checkBoardForOccupiedSpace()
+        addOccupiedClassToDiv()
         displayController.resetGameBoard()
         gameBoard = [
             [''],[''],[''],
@@ -51,11 +58,11 @@ const gameBoardFactory = () => {
     }
 
     const printGameBoard = () =>  {
-        checkBoardForOccupiedSpace()
+        addOccupiedClassToDiv()
         displayController.printGameBoard(gameBoard)
     }
     
-    
+
     let insertPlayerChoice = (valueToAddToGameBoard) => gameBoard[valueToAddToGameBoard] = player.returnPlayerPiece() //{
 
     const insertAIChoice = (valueToAddToGameBoard) => gameBoard[valueToAddToGameBoard] = ai.returnAI()
@@ -65,7 +72,8 @@ const gameBoardFactory = () => {
         insertPlayerChoice, 
         sendToPlayer,
         resetGameBoardData,
-        insertAIChoice
+        insertAIChoice,
+        getNewMoveIfOccupied
     }
 }
 
@@ -78,8 +86,17 @@ function sendBlockChoiceToGameBoard(e) {
     let getValue = document.getElementById(storeE).getAttributeNode("value").value
     if(clicked) {
         clicked = false
-        intializeGameBoard.insertPlayerChoice(getValue)
-        intializeGameBoard.insertAIChoice(Math.floor((Math.random() * 9) ))
+        if(intializeGameBoard.getNewMoveIfOccupied(getValue) === true){
+            intializeGameBoard.insertPlayerChoice(getValue)
+            let AILoop = false
+            while(AILoop === false){
+                let AIPiece = Math.floor((Math.random() * 9))
+                if(intializeGameBoard.getNewMoveIfOccupied(AIPiece) === true){
+                    intializeGameBoard.insertAIChoice(AIPiece)
+                    AILoop = true
+                }
+            }
+        }
         intializeGameBoard.printGameBoard()
     }
     
