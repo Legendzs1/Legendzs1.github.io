@@ -18,16 +18,15 @@ const gameBoardFactory = () => {
                 var occupiedSpace = document.getElementById("block_" + i)
                 occupiedSpace.className += " occupied"
             }
+            else {
+                var occupiedSpace = document.getElementById("block_" + i)
+                occupiedSpace.className = "block"
+            }
         }
-        //gameBoard.forEach((gameBoardPiece) => {
-            //if(gameBoardPiece != "") {
-               // var occupiedSpace = document.getElementById("block_" + _x)
-               // occupiedSpace.className += " occupied"
-            //}
-        //},_y = 0)
     }
 
     const resetGameBoardData = () => {
+        checkBoardForOccupiedSpace()
         displayController.resetGameBoard()
         gameBoard = [
             [''],[''],[''],
