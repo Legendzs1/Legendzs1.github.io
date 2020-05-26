@@ -5,6 +5,7 @@ const ai = AI()
 const gameBoardFactory = () => {
 
     let _x = 0
+    let _y = 0
     this.gameBoard = [
         [''],[''],[''],
         [''],[''],[''],
@@ -12,15 +13,18 @@ const gameBoardFactory = () => {
     ]
 
     const checkBoardForOccupiedSpace = () => {
-        gameBoard.forEach((gameBoardPiece) => {
-            if(gameBoardPiece==="") {
-                playerPiece(clicked)
+        for(let i = 0; i < gameBoard.length; i++) {
+            if(gameBoard[i] != "") {
+                var occupiedSpace = document.getElementById("block_" + i)
+                occupiedSpace.className += " occupied"
             }
-            else{
-                var occupiedSpace = document.getElementById("block_" + _x)
-                occupiedSpace.classList.add(" occupied")
-            }
-        },_x = 0)
+        }
+        //gameBoard.forEach((gameBoardPiece) => {
+            //if(gameBoardPiece != "") {
+               // var occupiedSpace = document.getElementById("block_" + _x)
+               // occupiedSpace.className += " occupied"
+            //}
+        //},_y = 0)
     }
 
     const resetGameBoardData = () => {
@@ -47,7 +51,10 @@ const gameBoardFactory = () => {
         }
     }
 
-    const printGameBoard = () =>  displayController.printGameBoard(gameBoard)
+    const printGameBoard = () =>  {
+        checkBoardForOccupiedSpace()
+        displayController.printGameBoard(gameBoard)
+    }
     
     
     let insertPlayerChoice = (valueToAddToGameBoard) => gameBoard[valueToAddToGameBoard] = player.returnPlayerPiece() //{

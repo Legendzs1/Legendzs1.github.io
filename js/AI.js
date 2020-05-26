@@ -1,5 +1,5 @@
 const AI = () => {
-    let _AIPiece = "X"
+    let _AIPiece = ""
 
     const returnAI = () => {return (_AIPiece)}
 
