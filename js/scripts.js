@@ -15,17 +15,20 @@ const gameBoardFactory = () => {
         remainingPieces--
     }
     const checkRemainingPieces = () => {
-        if(remainingPieces === 0) {
-            return true
-            //remainingPieces = 8//WILL BE BUG WHERE IF RESETBOARD IT DOESNT GO BACK UP
-            //FIGURE OUT HOW TO CHANGE BACK TO 8
-        }
 
-        return false
+        while(remainingPieces >=0){
+            if(remainingPieces ===0) {
+                return true
+            }
+            return false
+
+        }
+    
+
     }
 
     const setRamainingPieces = () => {
-        
+        remainingPieces = 8
     }
 
     const addOccupiedClassToDiv = () => {
@@ -96,7 +99,8 @@ const gameBoardFactory = () => {
         resetGameBoardData,
         insertAIChoice,
         getNewMoveIfOccupied,
-        checkRemainingPieces
+        checkRemainingPieces,
+        setRamainingPieces
     }
 }
 
@@ -134,6 +138,7 @@ function sendUserPieceToPlayer(e) {
 
 function callResetBoard() {
     intializeGameBoard.resetGameBoardData()
+    intializeGameBoard.setRamainingPieces()
     intializeGameBoard.printGameBoard()
 }
 
