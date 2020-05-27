@@ -11,6 +11,46 @@ const gameBoardFactory = () => {
         [''],[''],['']
     ]
 
+
+    const checkForWinner = (gameBoard,gamePiece) => {
+
+        if (gameBoard[0] === gamePiece && gameBoard[1] === gamePiece && gameBoard[2] === gamePiece) {
+            //console.log(gamePiece + " Wins!0 " + gameBoard[0] + gameBoard[1] + gameBoard[2])
+            displayController.displayWinner(gamePiece)
+            return true
+        }
+        else if (gameBoard[3] === gamePiece && gameBoard[4] === gamePiece && gameBoard[5] === gamePiece) {
+            //console.log(gamePiece + " Wins!1 " + gameBoard[3] + gameBoard[4] + gameBoard[5])
+            displayController.displayWinner(gamePiece)
+            return true
+        }
+        else if (gameBoard[6] === gamePiece && gameBoard[7] === gamePiece && gameBoard[8] === gamePiece) {
+            //console.log(gamePiece + " Wins!2 " + gameBoard[6] + gameBoard[7] + gameBoard[8])
+            displayController.displayWinner(gamePiece)
+            return true
+        }
+        else if (gameBoard[0] === gamePiece && gameBoard[3] === gamePiece && gameBoard[6] === gamePiece) {
+            //console.log(gamePiece + " Wins!3 " + gameBoard[0] + gameBoard[3] + gameBoard[6])
+            displayController.displayWinner(gamePiece)
+            return true
+        }
+        else if (gameBoard[1] === gamePiece && gameBoard[4] === gamePiece && gameBoard[7] === gamePiece) {
+            //console.log(gamePiece + " Wins!4 " + gameBoard[1] + gameBoard[4] + gameBoard[7])
+            displayController.displayWinner(gamePiece)
+            return true
+        }
+        else if (gameBoard[2] === gamePiece && gameBoard[5] === gamePiece && gameBoard[8] === gamePiece) {
+            //console.log(gamePiece + " Wins!5 " + gameBoard[2] + gameBoard[5] + gameBoard[8])
+            displayController.displayWinner(gamePiece)
+            return true
+        }
+        else if(checkRemainingPieces === true){
+            //console.log("Game Tied")
+            displayController.displayTie()
+        } 
+
+    }
+
     const _subtractRemainingPieces = () => {
         remainingPieces--
     }
@@ -21,10 +61,7 @@ const gameBoardFactory = () => {
                 return true
             }
             return false
-
         }
-    
-
     }
 
     const setRamainingPieces = () => {
@@ -81,6 +118,9 @@ const gameBoardFactory = () => {
         displayController.printGameBoard(gameBoard)
     }
     
+    const returnGameBoard = () => {
+        return gameBoard
+    }
 
     let insertPlayerChoice = (valueToAddToGameBoard) => {
         gameBoard[valueToAddToGameBoard] = player.returnPlayerPiece() 
@@ -91,6 +131,7 @@ const gameBoardFactory = () => {
         gameBoard[valueToAddToGameBoard] = ai.returnAI()
         _subtractRemainingPieces()
     }
+    
 
     return {
         printGameBoard, 
@@ -100,8 +141,11 @@ const gameBoardFactory = () => {
         insertAIChoice,
         getNewMoveIfOccupied,
         checkRemainingPieces,
-        setRamainingPieces
+        setRamainingPieces,
+        checkForWinner,
+        returnGameBoard
     }
+
 }
 
 const intializeGameBoard = gameBoardFactory()
@@ -111,17 +155,18 @@ function sendBlockChoiceToGameBoard(e) {
     // returns the value of the dom element
     let clicked = true
     let getValue = document.getElementById(storeE).getAttributeNode("value").value
-    if(clicked) {
+    if (clicked) {
         clicked = false
-        if(intializeGameBoard.getNewMoveIfOccupied(getValue) === true){
+        if (intializeGameBoard.getNewMoveIfOccupied(getValue) === true) {
             intializeGameBoard.insertPlayerChoice(getValue)
-            if(intializeGameBoard.checkRemainingPieces()=== false)
-            {
+            intializeGameBoard.checkForWinner(intializeGameBoard.returnGameBoard(),player.returnPlayerPiece())
+            if (intializeGameBoard.checkRemainingPieces() === false) {
                 let AILoop = false
-                while(AILoop === false){
+                while (AILoop === false) {
                     let AIPiece = Math.floor((Math.random() * 9))
-                    if(intializeGameBoard.getNewMoveIfOccupied(AIPiece) === true){
+                    if (intializeGameBoard.getNewMoveIfOccupied(AIPiece) === true) {
                         intializeGameBoard.insertAIChoice(AIPiece)
+                        intializeGameBoard.checkForWinner(intializeGameBoard.returnGameBoard(),ai.returnAI())
                         AILoop = true
                     }
                 }
@@ -143,3 +188,4 @@ function callResetBoard() {
 }
 
 intializeGameBoard.resetGameBoardData()
+

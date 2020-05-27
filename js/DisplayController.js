@@ -9,6 +9,10 @@ const DisplayController = () => {
     const resetGameBoard = () => {
         let playArea = document.getElementById("playArea")
         let choosePiece = document.getElementById("choosePiece")
+        let xWon = document.getElementById("X-won")
+        let OWon = document.getElementById("O-won")
+        xWon.style.display = "none"
+        OWon.style.display = "none"
         playArea.style.display = "none"
         choosePiece.style.display = "flex"
 
@@ -20,11 +24,24 @@ const DisplayController = () => {
         choosePiece.style.display = "none"
         
     }
+    const displayWinner = (winnerPiece) => {
+        console.log(winnerPiece + " wins!!!")
+        let winner = document.getElementById(winnerPiece + "-won")
+        winner.style.display = "flex"
+    }
+
+    const displayTie = () => {
+        console.log("It's a tie")
+        let tie = document.getElementById("tie")
+        tie.style.display = "flex"
+    }
 
     return {
         printGameBoard,
         resetGameBoard,
-        showGameBoard
+        showGameBoard,
+        displayWinner,
+        displayTie
     }
 
 };
