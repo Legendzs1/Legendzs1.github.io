@@ -123,11 +123,13 @@ const gameBoardFactory = () => {
 
     let insertPlayerChoice = (valueToAddToGameBoard) => {
         gameBoard[valueToAddToGameBoard] = player.returnPlayerPiece() 
+        checkForWinner(returnGameBoard(),player.returnPlayerPiece())
         _subtractRemainingPieces()
     }
 
     const insertAIChoice = (valueToAddToGameBoard) => {
         gameBoard[valueToAddToGameBoard] = ai.returnAI()
+        checkForWinner(returnGameBoard(),ai.returnAI())
         _subtractRemainingPieces()
     }
     
@@ -158,14 +160,12 @@ function sendBlockChoiceToGameBoard(e) {
         clicked = false
         if (intializeGameBoard.getNewMoveIfOccupied(getValue) === true) {
             intializeGameBoard.insertPlayerChoice(getValue)
-            intializeGameBoard.checkForWinner(intializeGameBoard.returnGameBoard(),player.returnPlayerPiece())
             if (intializeGameBoard.checkRemainingPieces() === false) {
                 let AILoop = false
                 while (AILoop === false) {
                     let AIPiece = Math.floor((Math.random() * 9))
                     if (intializeGameBoard.getNewMoveIfOccupied(AIPiece) === true) {
                         intializeGameBoard.insertAIChoice(AIPiece)
-                        intializeGameBoard.checkForWinner(intializeGameBoard.returnGameBoard(),ai.returnAI())
                         AILoop = true
                     }
                 }
