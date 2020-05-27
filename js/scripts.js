@@ -13,42 +13,41 @@ const gameBoardFactory = () => {
 
 
     const checkForWinner = (gameBoard,gamePiece) => {
-
         if (gameBoard[0] === gamePiece && gameBoard[1] === gamePiece && gameBoard[2] === gamePiece) {
-            //console.log(gamePiece + " Wins!0 " + gameBoard[0] + gameBoard[1] + gameBoard[2])
             displayController.displayWinner(gamePiece)
             return true
         }
         else if (gameBoard[3] === gamePiece && gameBoard[4] === gamePiece && gameBoard[5] === gamePiece) {
-            //console.log(gamePiece + " Wins!1 " + gameBoard[3] + gameBoard[4] + gameBoard[5])
             displayController.displayWinner(gamePiece)
             return true
         }
         else if (gameBoard[6] === gamePiece && gameBoard[7] === gamePiece && gameBoard[8] === gamePiece) {
-            //console.log(gamePiece + " Wins!2 " + gameBoard[6] + gameBoard[7] + gameBoard[8])
             displayController.displayWinner(gamePiece)
             return true
         }
         else if (gameBoard[0] === gamePiece && gameBoard[3] === gamePiece && gameBoard[6] === gamePiece) {
-            //console.log(gamePiece + " Wins!3 " + gameBoard[0] + gameBoard[3] + gameBoard[6])
             displayController.displayWinner(gamePiece)
             return true
         }
         else if (gameBoard[1] === gamePiece && gameBoard[4] === gamePiece && gameBoard[7] === gamePiece) {
-            //console.log(gamePiece + " Wins!4 " + gameBoard[1] + gameBoard[4] + gameBoard[7])
             displayController.displayWinner(gamePiece)
             return true
         }
         else if (gameBoard[2] === gamePiece && gameBoard[5] === gamePiece && gameBoard[8] === gamePiece) {
-            //console.log(gamePiece + " Wins!5 " + gameBoard[2] + gameBoard[5] + gameBoard[8])
             displayController.displayWinner(gamePiece)
             return true
         }
-        else if(checkRemainingPieces === true){
-            //console.log("Game Tied")
+        else if (gameBoard[0] === gamePiece && gameBoard[4] === gamePiece && gameBoard[8] === gamePiece) {
+            displayController.displayWinner(gamePiece)
+            return true
+        }
+        else if (gameBoard[6] === gamePiece && gameBoard[4] === gamePiece && gameBoard[2] === gamePiece) {
+            displayController.displayWinner(gamePiece)
+            return true
+        }
+        else if(checkRemainingPieces() === true){
             displayController.displayTie()
         } 
-
     }
 
     const _subtractRemainingPieces = () => {

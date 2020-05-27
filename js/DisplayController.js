@@ -11,8 +11,10 @@ const DisplayController = () => {
         let choosePiece = document.getElementById("choosePiece")
         let xWon = document.getElementById("X-won")
         let OWon = document.getElementById("O-won")
+        let tie = document.getElementById("tie")
         xWon.style.display = "none"
         OWon.style.display = "none"
+        tie.style.display = "none"
         playArea.style.display = "none"
         choosePiece.style.display = "flex"
 
