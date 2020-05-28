@@ -11,7 +11,6 @@ const gameBoardFactory = () => {
         [''],[''],['']
     ]
 
-
     const checkForWinner = (gameBoard,gamePiece) => {
         if (gameBoard[0] === gamePiece && gameBoard[1] === gamePiece && gameBoard[2] === gamePiece) {
             displayController.displayWinner(gamePiece)
@@ -54,7 +53,6 @@ const gameBoardFactory = () => {
         remainingPieces--
     }
     const checkRemainingPieces = () => {
-
         while(remainingPieces >=0){
             if(remainingPieces ===0) {
                 return true
@@ -133,7 +131,6 @@ const gameBoardFactory = () => {
         _subtractRemainingPieces()
     }
     
-
     return {
         printGameBoard, 
         insertPlayerChoice, 
@@ -173,8 +170,19 @@ function sendBlockChoiceToGameBoard(e) {
         }
         intializeGameBoard.printGameBoard()
     }
-    
 }
+
+function sendUserNameToPlayer() {
+    const userForm = document.forms["userName"]
+    let userName = userForm.elements["name"].value
+    player.setUserName(userName)
+    console.log(player.returnUserName())
+    displayController.hideUserName()
+    displayController.displayUserPieceChoice()
+    userForm.reset()
+    return false
+}
+
 function sendUserPieceToPlayer(e) {
     let storeUserPieceID = e.id
     intializeGameBoard.sendToPlayer(storeUserPieceID)

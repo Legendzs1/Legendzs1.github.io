@@ -16,13 +16,20 @@
 
 <body>
    <div class="container">
-    <h1>Tic-Tac-Toe</h1>
+    <h1 id="title">Tic-Tac-Toe</h1>
     <div class="choose-piece" id="choosePiece">
       <div class="choose-block" onclick="sendUserPieceToPlayer(this)" id="X">X</div>
       <div class="choose-block" onclick="sendUserPieceToPlayer(this)" id="O">O</div>
     </div>
-    <h1 id="X-won" class="end-game">X has won!!</h1>
-    <h1 id="O-won" class="end-game">O has won!!</h1>
+    <div id="userForm">
+      <form onsubmit="return sendUserNameToPlayer()" name="userName" id="userName">
+        <label for="name" id="userFormTitle">Enter your name</label><br>
+        <input type="text" id="name" name="name">
+        <button type="submit" value="Submit" id="submitUserName">Submit</button>
+      </form>
+    </div>
+
+    <h1 id="winner" class="end-game"></h1>
     <h1 id="tie" class="end-game">Its a tie :(</h1>
     <div class="play-area" id="playArea">
       <div id="block_0" onclick="sendBlockChoiceToGameBoard(this)" value="0" class="block"></div>

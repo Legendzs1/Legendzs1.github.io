@@ -7,33 +7,59 @@ const DisplayController = () => {
     },_x = 0)
 
     const resetGameBoard = () => {
-        let playArea = document.getElementById("playArea")
-        let choosePiece = document.getElementById("choosePiece")
-        let xWon = document.getElementById("X-won")
-        let OWon = document.getElementById("O-won")
-        let tie = document.getElementById("tie")
-        xWon.style.display = "none"
-        OWon.style.display = "none"
-        tie.style.display = "none"
-        playArea.style.display = "none"
-        choosePiece.style.display = "flex"
-
+        displayUserName()
     }
+
+    const displayUserName = () => {
+        let userName = document.getElementById("userForm")
+        userName.style.display = "block"
+        hideUserPieceChoice()
+        hideGameBoard()
+        hideWinner()
+    }
+
+    const hideUserName = () => {
+        let userName = document.getElementById("userForm")
+        userName.style.display = "none"
+    }
+
+    const displayUserPieceChoice = () => {
+        let choosePiece = document.getElementById("choosePiece")
+        choosePiece.style.display = "flex"
+    }
+
+    const hideUserPieceChoice = () => {
+        let choosePiece = document.getElementById("choosePiece")
+        choosePiece.style.display = "none"
+    }
+
+    const hideGameBoard = () => {
+        let playArea = document.getElementById("playArea")
+        playArea.style.display = "none"
+    }
+
     const showGameBoard = () => {
         let playArea = document.getElementById("playArea")
         let choosePiece = document.getElementById("choosePiece")
         playArea.style.display = "grid"
         choosePiece.style.display = "none"
-        
     }
+
+    const hideWinner = () => {
+        let winner = document.getElementById("winner")
+        let tie = document.getElementById("tie")
+        winner.style.display = "none"
+        tie.style.display = "none"
+    }
+
     const displayWinner = (winnerPiece) => {
-        console.log(winnerPiece + " wins!!!")
-        let winner = document.getElementById(winnerPiece + "-won")
+        let winner = document.getElementById("winner")
+        let winnerStatement = `${winnerPiece} has won!!`
+        winner.textContent = winnerStatement
         winner.style.display = "flex"
     }
 
     const displayTie = () => {
-        console.log("It's a tie")
         let tie = document.getElementById("tie")
         tie.style.display = "flex"
     }
@@ -43,7 +69,9 @@ const DisplayController = () => {
         resetGameBoard,
         showGameBoard,
         displayWinner,
-        displayTie
+        displayTie,
+        hideUserName,
+        displayUserPieceChoice
     }
 
 };
