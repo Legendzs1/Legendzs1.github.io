@@ -6,12 +6,63 @@ const gameBoardFactory = () => {
 
     this.remainingPieces = 8
     this.gameBoard = [
-        [''],[''],[''],
-        [''],[''],[''],
-        [''],[''],['']
+        '','','',
+        '','','',
+        '','',''
     ]
 
+    this.winningIndexTuples = [
+        [0,1,2],
+        [3,4,5],
+        [6,7,8],
+        [0,3,6],
+        [1,4,7],
+        [2,5,8],
+        [0,4,8],
+        [2,4,6]
+    ]
+
+/*     const checkForWinner = (gameBoard, gamePiece) => {
+        if(checkRemainingPieces() === true){
+            displayController.displayTie()
+        } 
+        else {
+            winningIndexTuples.forEach(tuple => {
+            const possibleWinningRow = tuple.map(index => gameBoard[index]);
+        
+            if (possibleWinningRow.every(piece => piece === gamePiece)) {
+                displayWinnerGamePiece(gamePiece)
+            }
+            });
+        }
+    }
+ */
+
     const checkForWinner = (gameBoard,gamePiece) => {
+        for (const tuple of winningIndexTuples) {
+            const possibleWinningRow = tuple.map(index => gameBoard[index]);
+            if (possibleWinningRow.every(piece => piece === gamePiece)) {
+                displayWinnerGamePiece(gamePiece)
+            }
+            else if(checkRemainingPieces() === true){
+                    displayController.displayTie()
+            } 
+        }     
+    }
+
+ 
+
+    const displayWinnerGamePiece = (gamePiece) => {
+        if(gamePiece === player.returnPlayerPiece()) {
+            displayController.displayWinner(player.returnUserName())
+        }
+        else {
+            displayController.displayWinner(ai.returnAI())
+        }
+    }
+
+
+/*     const checkForWinner = (gameBoard,gamePiece) => {
         if (gameBoard[0] === gamePiece && gameBoard[1] === gamePiece && gameBoard[2] === gamePiece) {
             if(gamePiece === player.returnPlayerPiece()) {
                 displayController.displayWinner(player.returnUserName())
@@ -98,7 +149,7 @@ const gameBoardFactory = () => {
         else {
             return false
         }
-    }
+    } */
 
     const _subtractRemainingPieces = () => {
         remainingPieces--
@@ -177,11 +228,11 @@ const gameBoardFactory = () => {
     }
 
     const insertAIChoice = (valueToAddToGameBoard) => {
-        if(checkForWinner(returnGameBoard(),player.returnPlayerPiece())=== false) {
+        //if(checkForWinner(returnGameBoard(),player.returnPlayerPiece())=== false) {
             gameBoard[valueToAddToGameBoard] = ai.returnAI()
             checkForWinner(returnGameBoard(),ai.returnAI())
             _subtractRemainingPieces()
-        }
+        //}
     }
     
     return {
