@@ -13,36 +13,84 @@ const gameBoardFactory = () => {
 
     const checkForWinner = (gameBoard,gamePiece) => {
         if (gameBoard[0] === gamePiece && gameBoard[1] === gamePiece && gameBoard[2] === gamePiece) {
-            displayController.displayWinner(gamePiece)
-            return true
+            if(gamePiece === player.returnPlayerPiece()) {
+                displayController.displayWinner(player.returnUserName())
+                return true
+            }
+            else {
+                displayController.displayWinner(ai.returnAI())
+                return true
+            }
         }
         else if (gameBoard[3] === gamePiece && gameBoard[4] === gamePiece && gameBoard[5] === gamePiece) {
-            displayController.displayWinner(gamePiece)
-            return true
+            if(gamePiece === player.returnPlayerPiece()) {
+                displayController.displayWinner(player.returnUserName())
+                return true
+            }
+            else {
+                displayController.displayWinner(ai.returnAI())
+                return true
+            }
         }
         else if (gameBoard[6] === gamePiece && gameBoard[7] === gamePiece && gameBoard[8] === gamePiece) {
-            displayController.displayWinner(gamePiece)
-            return true
+            if(gamePiece === player.returnPlayerPiece()) {
+                displayController.displayWinner(player.returnUserName())
+                return true
+            }
+            else {
+                displayController.displayWinner(ai.returnAI())
+                return true
+            }
         }
         else if (gameBoard[0] === gamePiece && gameBoard[3] === gamePiece && gameBoard[6] === gamePiece) {
-            displayController.displayWinner(gamePiece)
-            return true
+            if(gamePiece === player.returnPlayerPiece()) {
+                displayController.displayWinner(player.returnUserName())
+                return true
+            }
+            else {
+                displayController.displayWinner(ai.returnAI())
+                return true
+            }
         }
         else if (gameBoard[1] === gamePiece && gameBoard[4] === gamePiece && gameBoard[7] === gamePiece) {
-            displayController.displayWinner(gamePiece)
-            return true
+            if(gamePiece === player.returnPlayerPiece()) {
+                displayController.displayWinner(player.returnUserName())
+                return true
+            }
+            else {
+                displayController.displayWinner(ai.returnAI())
+                return true
+            }
         }
         else if (gameBoard[2] === gamePiece && gameBoard[5] === gamePiece && gameBoard[8] === gamePiece) {
-            displayController.displayWinner(gamePiece)
-            return true
+            if(gamePiece === player.returnPlayerPiece()) {
+                displayController.displayWinner(player.returnUserName())
+                return true
+            }
+            else {
+                displayController.displayWinner(ai.returnAI())
+                return true
+            }
         }
         else if (gameBoard[0] === gamePiece && gameBoard[4] === gamePiece && gameBoard[8] === gamePiece) {
-            displayController.displayWinner(gamePiece)
-            return true
+            if(gamePiece === player.returnPlayerPiece()) {
+                displayController.displayWinner(player.returnUserName())
+                return true
+            }
+            else {
+                displayController.displayWinner(ai.returnAI())
+                return true
+            }
         }
         else if (gameBoard[6] === gamePiece && gameBoard[4] === gamePiece && gameBoard[2] === gamePiece) {
-            displayController.displayWinner(gamePiece)
-            return true
+            if(gamePiece === player.returnPlayerPiece()) {
+                displayController.displayWinner(player.returnUserName())
+                return true
+            }
+            else {
+                displayController.displayWinner(ai.returnAI())
+                return true
+            }
         }
         else if(checkRemainingPieces() === true){
             displayController.displayTie()
@@ -176,7 +224,6 @@ function sendUserNameToPlayer() {
     const userForm = document.forms["userName"]
     let userName = userForm.elements["name"].value
     player.setUserName(userName)
-    console.log(player.returnUserName())
     displayController.hideUserName()
     displayController.displayUserPieceChoice()
     userForm.reset()

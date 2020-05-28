@@ -52,9 +52,9 @@ const DisplayController = () => {
         tie.style.display = "none"
     }
 
-    const displayWinner = (winnerPiece) => {
+    const displayWinner = (winnerName) => {
         let winner = document.getElementById("winner")
-        let winnerStatement = `${winnerPiece} has won!!`
+        let winnerStatement = `${winnerName} has won!!`
         winner.textContent = winnerStatement
         winner.style.display = "flex"
     }
