@@ -95,6 +95,9 @@ const gameBoardFactory = () => {
         else if(checkRemainingPieces() === true){
             displayController.displayTie()
         } 
+        else {
+            return false
+        }
     }
 
     const _subtractRemainingPieces = () => {
@@ -174,9 +177,11 @@ const gameBoardFactory = () => {
     }
 
     const insertAIChoice = (valueToAddToGameBoard) => {
-        gameBoard[valueToAddToGameBoard] = ai.returnAI()
-        checkForWinner(returnGameBoard(),ai.returnAI())
-        _subtractRemainingPieces()
+        if(checkForWinner(returnGameBoard(),player.returnPlayerPiece())=== false) {
+            gameBoard[valueToAddToGameBoard] = ai.returnAI()
+            checkForWinner(returnGameBoard(),ai.returnAI())
+            _subtractRemainingPieces()
+        }
     }
     
     return {
