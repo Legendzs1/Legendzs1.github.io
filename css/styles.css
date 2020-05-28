@@ -166,7 +166,8 @@
   font-size: 31px;
   font-family: Arial, Helvetica, sans-serif;
 }
-
-#submitUserName {
-  border-top: none;
+@media only screen and (max-width: 600px) {
+  #submitUserName {
+    border-top: none;
+  }
 }
