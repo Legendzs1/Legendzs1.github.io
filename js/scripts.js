@@ -5,7 +5,7 @@ const ai = AI()
 const gameBoardFactory = () => {
 
     this.winner = false
-    this.remainingPieces = 8
+    this.remainingPieces = 9
     this.gameBoard = [
         '','','',
         '','','',
@@ -23,22 +23,6 @@ const gameBoardFactory = () => {
         [2,4,6]
     ]
 
-/*     const checkForWinner = (gameBoard, gamePiece) => {
-        if(noRemainingPiecesExist() === true){
-            displayController.displayTie()
-        } 
-        else {
-            winningIndexTuples.forEach(tuple => {
-            const possibleWinningRow = tuple.map(index => gameBoard[index]);
-        
-            if (possibleWinningRow.every(piece => piece === gamePiece)) {
-                displayWinnerGamePiece(gamePiece)
-            }
-            });
-        }
-    }
- */
-
     const checkForWinner = (gameBoard,gamePiece) => {
         for (const tuple of winningIndexTuples) {
             const possibleWinningRow = tuple.map(index => gameBoard[index]);
@@ -46,13 +30,13 @@ const gameBoardFactory = () => {
                 displayWinnerGamePiece(gamePiece)
                 winner = true
             }
-            else if(noRemainingPiecesExist() === true){
-                displayController.displayTie()
-            }
+        }
     }
-}
 
- 
+    const callTie = () => {
+        console.log("tie")
+        displayController.displayTie()
+    }
 
     const displayWinnerGamePiece = (gamePiece) => {
         if(gamePiece === player.returnPlayerPiece()) {
@@ -67,7 +51,14 @@ const gameBoardFactory = () => {
     const _subtractRemainingPieces = () => {
         remainingPieces--
     }
-    const noRemainingPiecesExist = () => {return remainingPieces === 0}
+    const noRemainingPiecesExist = () => {        
+        while(remainingPieces >=0){
+            if(remainingPieces ===0) {
+                return true
+            }
+        return false
+        }
+    }
 
     const setRamainingPieces = () => {
         remainingPieces = 8
@@ -152,7 +143,8 @@ const gameBoardFactory = () => {
         noRemainingPiecesExist,
         setRamainingPieces,
         checkForWinner,
-        returnGameBoard
+        returnGameBoard,
+        callTie
     }
 
 }
@@ -177,6 +169,8 @@ function sendBlockChoiceToGameBoard(e) {
                         AILoop = true
                     }
                 }
+            } else if (intializeGameBoard.noRemainingPiecesExist() === true) {
+                intializeGameBoard.callTie()
             }
         }
         intializeGameBoard.printGameBoard()
