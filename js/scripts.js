@@ -60,7 +60,7 @@ const gameBoardFactory = () => {
         }
     }
 
-    const setRamainingPieces = () => {
+    const setRemainingPieces = () => {
         remainingPieces = 9
     }
 
@@ -141,7 +141,7 @@ const gameBoardFactory = () => {
         insertAIChoice,
         getNewMoveIfOccupied,
         noRemainingPiecesExist,
-        setRamainingPieces,
+        setRemainingPieces,
         checkForWinner,
         returnGameBoard,
         callTie
@@ -194,7 +194,7 @@ function sendUserPieceToPlayer(e) {
 
 function callResetBoard() {
     intializeGameBoard.resetGameBoardData()
-    intializeGameBoard.setRamainingPieces()
+    intializeGameBoard.setRemainingPieces()
     intializeGameBoard.printGameBoard()
 }
 
