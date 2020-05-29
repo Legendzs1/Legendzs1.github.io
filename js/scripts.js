@@ -61,7 +61,7 @@ const gameBoardFactory = () => {
     }
 
     const setRamainingPieces = () => {
-        remainingPieces = 8
+        remainingPieces = 9
     }
 
     const addOccupiedClassToDiv = () => {
