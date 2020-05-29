@@ -12,6 +12,10 @@ Simple tic-tac-toe project from [THE ODIN PROJECT](https://www.theodinproject.co
 
 	
 ![](images/username.png)
+---------------------------------------
 ![](images/choosePiece.png)
+---------------------------------------
 ![](images/board.png)
+---------------------------------------
 ![](images/winner.png)
+---------------------------------------
