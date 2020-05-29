@@ -4,6 +4,7 @@ const ai = AI()
 
 const gameBoardFactory = () => {
 
+    this.winner = false
     this.remainingPieces = 8
     this.gameBoard = [
         '','','',
@@ -23,7 +24,7 @@ const gameBoardFactory = () => {
     ]
 
 /*     const checkForWinner = (gameBoard, gamePiece) => {
-        if(checkRemainingPieces() === true){
+        if(noRemainingPiecesExist() === true){
             displayController.displayTie()
         } 
         else {
@@ -43,12 +44,13 @@ const gameBoardFactory = () => {
             const possibleWinningRow = tuple.map(index => gameBoard[index]);
             if (possibleWinningRow.every(piece => piece === gamePiece)) {
                 displayWinnerGamePiece(gamePiece)
+                winner = true
             }
-            else if(checkRemainingPieces() === true){
-                    displayController.displayTie()
-            } 
-        }     
+            else if(noRemainingPiecesExist() === true){
+                displayController.displayTie()
+            }
     }
+}
 
  
 
@@ -62,106 +64,10 @@ const gameBoardFactory = () => {
     }
 
 
-/*     const checkForWinner = (gameBoard,gamePiece) => {
-        if (gameBoard[0] === gamePiece && gameBoard[1] === gamePiece && gameBoard[2] === gamePiece) {
-            if(gamePiece === player.returnPlayerPiece()) {
-                displayController.displayWinner(player.returnUserName())
-                return true
-            }
-            else {
-                displayController.displayWinner(ai.returnAI())
-                return true
-            }
-        }
-        else if (gameBoard[3] === gamePiece && gameBoard[4] === gamePiece && gameBoard[5] === gamePiece) {
-            if(gamePiece === player.returnPlayerPiece()) {
-                displayController.displayWinner(player.returnUserName())
-                return true
-            }
-            else {
-                displayController.displayWinner(ai.returnAI())
-                return true
-            }
-        }
-        else if (gameBoard[6] === gamePiece && gameBoard[7] === gamePiece && gameBoard[8] === gamePiece) {
-            if(gamePiece === player.returnPlayerPiece()) {
-                displayController.displayWinner(player.returnUserName())
-                return true
-            }
-            else {
-                displayController.displayWinner(ai.returnAI())
-                return true
-            }
-        }
-        else if (gameBoard[0] === gamePiece && gameBoard[3] === gamePiece && gameBoard[6] === gamePiece) {
-            if(gamePiece === player.returnPlayerPiece()) {
-                displayController.displayWinner(player.returnUserName())
-                return true
-            }
-            else {
-                displayController.displayWinner(ai.returnAI())
-                return true
-            }
-        }
-        else if (gameBoard[1] === gamePiece && gameBoard[4] === gamePiece && gameBoard[7] === gamePiece) {
-            if(gamePiece === player.returnPlayerPiece()) {
-                displayController.displayWinner(player.returnUserName())
-                return true
-            }
-            else {
-                displayController.displayWinner(ai.returnAI())
-                return true
-            }
-        }
-        else if (gameBoard[2] === gamePiece && gameBoard[5] === gamePiece && gameBoard[8] === gamePiece) {
-            if(gamePiece === player.returnPlayerPiece()) {
-                displayController.displayWinner(player.returnUserName())
-                return true
-            }
-            else {
-                displayController.displayWinner(ai.returnAI())
-                return true
-            }
-        }
-        else if (gameBoard[0] === gamePiece && gameBoard[4] === gamePiece && gameBoard[8] === gamePiece) {
-            if(gamePiece === player.returnPlayerPiece()) {
-                displayController.displayWinner(player.returnUserName())
-                return true
-            }
-            else {
-                displayController.displayWinner(ai.returnAI())
-                return true
-            }
-        }
-        else if (gameBoard[6] === gamePiece && gameBoard[4] === gamePiece && gameBoard[2] === gamePiece) {
-            if(gamePiece === player.returnPlayerPiece()) {
-                displayController.displayWinner(player.returnUserName())
-                return true
-            }
-            else {
-                displayController.displayWinner(ai.returnAI())
-                return true
-            }
-        }
-        else if(checkRemainingPieces() === true){
-            displayController.displayTie()
-        } 
-        else {
-            return false
-        }
-    } */
-
     const _subtractRemainingPieces = () => {
         remainingPieces--
     }
-    const checkRemainingPieces = () => {
-        while(remainingPieces >=0){
-            if(remainingPieces ===0) {
-                return true
-            }
-            return false
-        }
-    }
+    const noRemainingPiecesExist = () => {return remainingPieces === 0}
 
     const setRamainingPieces = () => {
         remainingPieces = 8
@@ -190,6 +96,7 @@ const gameBoardFactory = () => {
     const resetGameBoardData = () => {
         addOccupiedClassToDiv()
         displayController.resetGameBoard()
+        winner = false
         gameBoard = [
             [''],[''],[''],
             [''],[''],[''],
@@ -228,11 +135,11 @@ const gameBoardFactory = () => {
     }
 
     const insertAIChoice = (valueToAddToGameBoard) => {
-        //if(checkForWinner(returnGameBoard(),player.returnPlayerPiece())=== false) {
+        if(winner=== false) {
             gameBoard[valueToAddToGameBoard] = ai.returnAI()
             checkForWinner(returnGameBoard(),ai.returnAI())
             _subtractRemainingPieces()
-        //}
+        }
     }
     
     return {
@@ -242,7 +149,7 @@ const gameBoardFactory = () => {
         resetGameBoardData,
         insertAIChoice,
         getNewMoveIfOccupied,
-        checkRemainingPieces,
+        noRemainingPiecesExist,
         setRamainingPieces,
         checkForWinner,
         returnGameBoard
@@ -261,7 +168,7 @@ function sendBlockChoiceToGameBoard(e) {
         clicked = false
         if (intializeGameBoard.getNewMoveIfOccupied(getValue) === true) {
             intializeGameBoard.insertPlayerChoice(getValue)
-            if (intializeGameBoard.checkRemainingPieces() === false) {
+            if (intializeGameBoard.noRemainingPiecesExist() === false) {
                 let AILoop = false
                 while (AILoop === false) {
                     let AIPiece = Math.floor((Math.random() * 9))
